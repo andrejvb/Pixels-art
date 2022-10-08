@@ -1,7 +1,15 @@
 // variaveis globais
 const principal = document.getElementById('color-palette');
 const palleta = document.getElementsByClassName('color');
+principal.style.display = 'flex';
+const sectionPixelBoard = document.getElementById('pixel-board')
 
+
+const l1 = document.getElementById('l1');
+const l2 = document.getElementById('l2');
+const l3 = document.getElementById('l3');
+const l4 = document.getElementById('l4');
+const l5 = document.getElementById('l5');
 
 // funções
 function randomCollors(){
@@ -11,12 +19,12 @@ function randomCollors(){
     return `rgb(${a}, ${b}, ${c})`;
 }
 
-function createOptionsColor(){
-    principal.style.display = 'flex';
+function createOptionsColor(){  
 
     for (let index = 0; index < 4; index += 1) {
         const createDiv = document.createElement('div');
         createDiv.style.marginTop = '50px';
+        createDiv.style.marginBlockEnd = '10px'
         createDiv.style.width = '50px';
         createDiv.style.height = '50px';
         createDiv.style.border = 'solid 1px black';
@@ -28,9 +36,11 @@ function createOptionsColor(){
 }
 
 function createButton(){
+
     const criaBotao = document.createElement('button')
     criaBotao.id = 'button-random-color';
     criaBotao.style.marginTop = '50px';
+    criaBotao.style.marginBlockEnd = '10px'
     criaBotao.innerHTML = 'Cores aleatórias';
     principal.appendChild(criaBotao);
     
@@ -38,10 +48,10 @@ function createButton(){
         let value = []; 
         for (let index = 1; index < 4; index += 1) {
             palleta[index].style.backgroundColor = randomCollors(); 
-            value.push(palleta[index].style.backgroundColor)            
-            localStorage.setItem('colorPalette', JSON.stringify(palleta[1].style.backgroundColor))         
-            localStorage.setItem('corEscolhidas2', JSON.stringify(palleta[2].style.backgroundColor))         
-            localStorage.setItem('corEscolhidas3', JSON.stringify(palleta[3].style.backgroundColor))
+            value.push(palleta[index].style.backgroundColor) ;           
+            localStorage.setItem('colorPalette', JSON.stringify(palleta[1].style.backgroundColor));         
+            localStorage.setItem('corEscolhidas2', JSON.stringify(palleta[2].style.backgroundColor));         
+            localStorage.setItem('corEscolhidas3', JSON.stringify(palleta[3].style.backgroundColor));
             
                                  
         }
@@ -62,26 +72,43 @@ function createButton(){
 
          
 // }
-createOptionsColor();
-createButton();
 
+function createPixelBoard(param1){ 
+           
+    for (let index = 0; index < 5; index += 1) {
+            const createDiv = document.createElement('div');
+            createDiv.style.border = 'solid 1px black';
+            createDiv.style.backgroundColor = 'white';
+            createDiv.id = 'pixel-board';
+            createDiv.className = 'pixel';
+            param1.appendChild(createDiv);
+        
+    }    
+    
+}
 
 function checkKey() {
-    if (localStorage.getItem('colorPalette') === null){ //é como se na primeira vez que acessa o site, a chave é nula pq ainda não foram sorteadas as cores - por isso é null.
-        localStorage.setItem('colorPalette', ''); //jogando um conteúdo vazio em colorPalette apenas para a chave ser criada 
-        localStorage.setItem('corEscolhidas2', ''); //jogando um conteúdo vazio em colorPalette apenas para a chave ser criada 
-        localStorage.setItem('corEscolhidas3', ''); //jogando um conteúdo vazio em colorPalette apenas para a chave ser criada 
+
+    if (localStorage.getItem('colorPalette') === null){ 
+        localStorage.setItem('colorPalette', ''); 
+        localStorage.setItem('corEscolhidas2', ''); 
+        localStorage.setItem('corEscolhidas3', ''); 
     } else{
         for (let index = 0; index < 3; index += 1) {
-            palleta[1].style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette'))
-            palleta[2].style.backgroundColor = JSON.parse(localStorage.getItem('corEscolhidas2'))
-            palleta[3].style.backgroundColor = JSON.parse(localStorage.getItem('corEscolhidas3')
-            )
+            palleta[1].style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette'));
+            palleta[2].style.backgroundColor = JSON.parse(localStorage.getItem('corEscolhidas2'));
+            palleta[3].style.backgroundColor = JSON.parse(localStorage.getItem('corEscolhidas3'));
         }
         
     }
 }
 
-
+//Executa Funções
+createOptionsColor();
+createButton();
 checkKey();
-
+createPixelBoard(l1);
+createPixelBoard(l2);
+createPixelBoard(l3);
+createPixelBoard(l4);
+createPixelBoard(l5);
