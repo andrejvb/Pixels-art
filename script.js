@@ -4,6 +4,7 @@ const palleta = document.getElementsByClassName('color');
 principal.style.display = 'flex';
 const sectionPixelBoard = document.getElementById('pixel-board')
 
+
 const l1 = document.getElementById('l1');
 const l2 = document.getElementById('l2');
 const l3 = document.getElementById('l3');
@@ -29,9 +30,10 @@ function createOptionsColor(){
         createDiv.className = 'color';        
         createDiv.style.backgroundColor = randomCollors();
         principal.appendChild(createDiv);
+
     } 
-  palleta[0].style.backgroundColor = 'rgb(00, 00, 00)';
-  palleta[0].className = 'color selected';
+    palleta[0].style.backgroundColor = 'rgb(00, 00, 00)';
+    palleta[0].className = 'color selected';  
 }
 
 function createButton(){
@@ -50,13 +52,13 @@ function createButton(){
             value.push(palleta[index].style.backgroundColor) ;           
             localStorage.setItem('colorPalette', JSON.stringify(palleta[1].style.backgroundColor));         
             localStorage.setItem('corEscolhidas2', JSON.stringify(palleta[2].style.backgroundColor));         
-            localStorage.setItem('corEscolhidas3', JSON.stringify(palleta[3].style.backgroundColor));
-            
-                                 
-        }
-        
+            localStorage.setItem('corEscolhidas3', JSON.stringify(palleta[3].style.backgroundColor));                                           
+        }   
     })
 }
+
+
+
 
 // function returnStorage (){
 //     if (localStorage.getintem(corEscolhidas1) === null) {
@@ -90,17 +92,35 @@ function checkKey() {
         localStorage.setItem('colorPalette', ''); 
         localStorage.setItem('corEscolhidas2', ''); 
         localStorage.setItem('corEscolhidas3', ''); 
-    } else{for (let index = 0; index < 3; index += 1) {
+    } else{for (let index = 0; index < 4; index += 1) {
             palleta[1].style.backgroundColor = JSON.parse(localStorage.getItem('colorPalette'));
             palleta[2].style.backgroundColor = JSON.parse(localStorage.getItem('corEscolhidas2'));
             palleta[3].style.backgroundColor = JSON.parse(localStorage.getItem('corEscolhidas3'));
         }
         
-    }
-    
+    }    
 }
 
+// function classSelected (){
+//         for (index = 0; index < 4; index += 1) {
+//             principal[index].addEventListener('click', function () {
+//             if (event.target.className === 'color') {
+//                 event.target.className += ' selected';
+//             }
+//             for (index = 0; index < 4; index += 1) {
+//                 if (principal[index] === event.target){
+//                 }
+//                 else {
+//                 principal[index] = 'color';
+//                 }
+//             }
+//             })
+//         }
+//     }
+// classSelected ()
+
 //Executa Funções
+
 createOptionsColor();
 createButton();
 checkKey();
@@ -109,3 +129,26 @@ createPixelBoard(l2);
 createPixelBoard(l3);
 createPixelBoard(l4);
 createPixelBoard(l5);
+
+function createEventListener(){  
+    // principal.addEventListener("click", (event) =>{
+    //   for (let index = 0; index < palleta.length; index += 1) {
+    //       palleta[index].classList.remove('selected')        
+    //   }
+    //   event.target.className = "color selected";
+     
+    // })
+    
+    for (let index = 0; index < palleta.length; index+=1) {
+    palleta[index].addEventListener('click', (event) => {
+        const selectedElements = document.querySelectorAll('.selected')
+        for (let index = 0; index < selectedElements.length; index+=1) {
+        selectedElements[index].classList.remove('selected')        
+        }
+    event.target.classList.add('selected')
+        })   
+
+    }
+}
+
+createEventListener()
