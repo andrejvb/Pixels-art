@@ -2,7 +2,7 @@
 const principal = document.getElementById('color-palette');
 const palleta = document.getElementsByClassName('color');
 principal.style.display = 'flex';
-const sectionPixelBoard = document.getElementById('pixel-board')
+const sectionPixelBoard = document.getElementsByClassName('pixel');
 
 
 const l1 = document.getElementById('l1');
@@ -57,9 +57,6 @@ function createButton(){
     })
 }
 
-
-
-
 // function returnStorage (){
 //     if (localStorage.getintem(corEscolhidas1) === null) {
 //         localStorage.setItem('corEscolhidas', coresEscolhidas)
@@ -70,7 +67,6 @@ function createButton(){
 //     palleta[2].style.backgroundColor = JSON.parse(coresEscolhidas[1]);
 //     palleta[3].style.backgroundColor = JSON.parse(coresEscolhidas[2]);
 //     }
-
          
 // }
 
@@ -101,6 +97,35 @@ function checkKey() {
     }    
 }
 
+function createEventListener(){  
+    // principal.addEventListener("click", (event) =>{
+    //   for (let index = 0; index < palleta.length; index += 1) {
+    //       palleta[index].classList.remove('selected')        
+    //   }
+    //   event.target.className = "color selected";
+     
+    // })
+    
+    for (let index = 0; index < palleta.length; index+=1) {
+    palleta[index].addEventListener('click', (event) => {
+        const selectedElements = document.querySelectorAll('.selected')
+        for (let index = 0; index < selectedElements.length; index+=1) {
+        selectedElements[index].classList.remove('selected')        
+        }
+    event.target.classList.add('selected')
+        })   
+
+    }
+}
+
+function paintPixel(){
+    for (let index = 0; index < sectionPixelBoard.length; index+=1) {
+        sectionPixelBoard[index].addEventListener('click', (event)=>{
+        event.target.style.backgroundColor = document.querySelector('.selected').style.backgroundColor;
+        })        
+    }
+   
+  }
 // function classSelected (){
 //         for (index = 0; index < 4; index += 1) {
 //             principal[index].addEventListener('click', function () {
@@ -129,26 +154,27 @@ createPixelBoard(l2);
 createPixelBoard(l3);
 createPixelBoard(l4);
 createPixelBoard(l5);
+createEventListener();
+paintPixel();
 
-function createEventListener(){  
-    // principal.addEventListener("click", (event) =>{
-    //   for (let index = 0; index < palleta.length; index += 1) {
-    //       palleta[index].classList.remove('selected')        
-    //   }
-    //   event.target.className = "color selected";
-     
-    // })
-    
-    for (let index = 0; index < palleta.length; index+=1) {
-    palleta[index].addEventListener('click', (event) => {
-        const selectedElements = document.querySelectorAll('.selected')
-        for (let index = 0; index < selectedElements.length; index+=1) {
-        selectedElements[index].classList.remove('selected')        
-        }
-    event.target.classList.add('selected')
-        })   
 
-    }
-}
 
-createEventListener()
+// function paintPixel(){
+//     sectionPixelBoard.addEventListener('click', (event)=>{
+//     event.target.style.backgroundColor = caption;
+
+//         if (captura === '') {
+//             captura = 'black';
+
+//         }
+
+//     });
+// }
+
+// const handlePixelClick = (event) => {
+//     event.target.style.backgroundColor = getCurrentColorPalette()[selectedColorIndex];
+//   }
+//     // pegar a cor selecionada
+//     const color = getCurrentColorPalette()[selectedColorIndex];
+//     // atribuir a cor ao pixel clicado
+//     event.target.style.backgroundColor = color;
