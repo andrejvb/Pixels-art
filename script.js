@@ -2,8 +2,8 @@
 const principal = document.getElementById('color-palette');
 const palleta = document.getElementsByClassName('color');
 principal.style.display = 'flex';
-const sectionPixelBoard = document.getElementsByClassName('pixel');
-
+const pixelBoard = document.getElementsByClassName('pixel');
+const sectionPixelBoard = document.querySelector('#pixel-board')
 
 const l1 = document.getElementById('l1');
 const l2 = document.getElementById('l2');
@@ -74,7 +74,7 @@ function createPixelBoard(param1){
     for (let index = 0; index < 5; index += 1) {
             const createDiv = document.createElement('div');
             createDiv.style.border = 'solid 1px black';
-            createDiv.style.backgroundColor = 'white';
+            createDiv.style.backgroundColor = 'rgb(255,255,255) ';
             createDiv.id = 'pixel-board';
             createDiv.className = 'pixel';
             param1.appendChild(createDiv);
@@ -119,8 +119,8 @@ function createEventListener(){
 }
 
 function paintPixel(){
-    for (let index = 0; index < sectionPixelBoard.length; index+=1) {
-        sectionPixelBoard[index].addEventListener('click', (event)=>{
+    for (let index = 0; index < pixelBoard.length; index+=1) {
+        pixelBoard[index].addEventListener('click', (event)=>{
         event.target.style.backgroundColor = document.querySelector('.selected').style.backgroundColor;
         })        
     }
@@ -143,6 +143,22 @@ function paintPixel(){
 //         }
 //     }
 // classSelected ()
+function createButtonReset(){
+
+    const criaBotao = document.createElement('button')
+    criaBotao.id = 'clear-board';
+    criaBotao.style.marginTop = '50px';
+    criaBotao.style.marginBlockEnd = '10px'
+    criaBotao.innerHTML = 'Limpar';
+    criaBotao.display = 'flex'
+    principal.appendChild(criaBotao);
+    
+    criaBotao.addEventListener('click', function ClearBoardClick(){
+        for (let index = 0; index < pixelBoard.length; index+=1) {
+            pixelBoard[index].style.backgroundColor = 'rgb(255,255,255)';
+      }
+    });
+}
 
 //Executa Funções
 
@@ -156,6 +172,7 @@ createPixelBoard(l4);
 createPixelBoard(l5);
 createEventListener();
 paintPixel();
+createButtonReset();
 
 
 
@@ -170,11 +187,3 @@ paintPixel();
 
 //     });
 // }
-
-// const handlePixelClick = (event) => {
-//     event.target.style.backgroundColor = getCurrentColorPalette()[selectedColorIndex];
-//   }
-//     // pegar a cor selecionada
-//     const color = getCurrentColorPalette()[selectedColorIndex];
-//     // atribuir a cor ao pixel clicado
-//     event.target.style.backgroundColor = color;
